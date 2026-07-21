@@ -27,6 +27,10 @@ Running the tool on the included sample data produces a report like:
 
 ...plus a category breakdown chart and a monthly income vs. expenses trend chart. See `output/report.md` after running the script for the full report.
 
+![Spending by Category](assets/category_breakdown.png)
+
+![Monthly Cash Flow](assets/monthly_trend.png)
+
 ## Project structure
 
 ```
