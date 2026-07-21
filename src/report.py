@@ -42,12 +42,42 @@ def top_merchants(df: pd.DataFrame, n: int = 5) -> pd.Series:
     return expenses.groupby("description")["amount"].sum().sort_values(ascending=False).head(n)
 
 
-def make_category_pie_chart(category_totals: pd.Series, output_path: Path) -> None:
-    plt.figure(figsize=(7, 7))
-    plt.pie(category_totals.values, labels=category_totals.index, autopct="%1.1f%%", startangle=90)
-    plt.title("Spending by Category")
+def make_category_pie_chart(category_totals: pd.Series, output_path: Path, min_share: float = 0.03) -> None:
+    """Pie chart of spending by category.
+
+    Categories below `min_share` of total spend (default 3%) are grouped into
+    an "Other" slice so tiny slivers don't produce overlapping labels.
+    Uses a legend rather than on-slice labels to stay readable regardless
+    of how many categories there are.
+    """
+    total = category_totals.sum()
+    shares = category_totals / total
+
+    large = category_totals[shares >= min_share]
+    small = category_totals[shares < min_share]
+
+    if not small.empty:
+        large = pd.concat([large, pd.Series({"Other": small.sum()})])
+
+    fig, ax = plt.subplots(figsize=(8, 7))
+    wedges, _, autotexts = ax.pie(
+        large.values,
+        autopct="%1.1f%%",
+        startangle=90,
+        pctdistance=0.8,
+        textprops={"fontsize": 9},
+    )
+    ax.set_title("Spending by Category")
+    ax.legend(
+        wedges,
+        [f"{name} (${amount:,.0f})" for name, amount in large.items()],
+        title="Category",
+        loc="center left",
+        bbox_to_anchor=(1.0, 0.5),
+        fontsize=9,
+    )
     plt.tight_layout()
-    plt.savefig(output_path, dpi=150)
+    plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close()
 
 
