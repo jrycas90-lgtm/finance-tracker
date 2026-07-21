@@ -1,0 +1,92 @@
+# Categorization rules for the finance tracker.
+# Each category maps to a list of keywords (case-insensitive substring match)
+# that will be searched for in a transaction's description.
+# Add your own bank's merchant naming conventions here as you learn them.
+
+categories:
+  Groceries:
+    - walmart
+    - trader joe
+    - whole foods
+    - kroger
+    - safeway
+    - aldi
+    - grocery
+
+  Dining Out:
+    - starbucks
+    - chipotle
+    - mcdonald
+    - doordash
+    - uber eats
+    - grubhub
+    - restaurant
+    - cafe
+    - pizza
+
+  Transportation:
+    - uber
+    - lyft
+    - shell
+    - chevron
+    - exxon
+    - gas station
+    - metro
+    - parking
+    - transit
+
+  Subscriptions:
+    - netflix
+    - spotify
+    - hulu
+    - disney+
+    - amazon prime
+    - youtube premium
+    - apple.com/bill
+    - icloud
+
+  Housing:
+    - rent
+    - mortgage
+    - property management
+    - hoa
+
+  Utilities:
+    - electric
+    - water bill
+    - gas company
+    - internet
+    - comcast
+    - xfinity
+    - verizon
+    - at&t
+
+  Shopping:
+    - amazon
+    - target
+    - best buy
+    - ebay
+    - etsy
+
+  Health:
+    - pharmacy
+    - cvs
+    - walgreens
+    - clinic
+    - dental
+    - doctor
+
+  Income:
+    - payroll
+    - direct deposit
+    - salary
+    - paycheck
+
+  Transfers:
+    - transfer
+    - venmo
+    - zelle
+    - paypal transfer
+
+# Anything that doesn't match a keyword above falls into this category.
+default_category: Uncategorized
